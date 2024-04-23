@@ -47,25 +47,29 @@ function serach_btn() {
   const $serach_input = document.getElementById('serach_input').value;
   const $movie_card_arr = document.getElementsByClassName('movie_card');
 
-  // 전체 영화 제목을 담을 배열
-  let movie_title_arr = [];
-  for (let i = 0; i < $movie_card_arr.length; i++) {
-    movie_title_arr[i] =
-      $movie_card_arr[i].getElementsByTagName('h3')[0].textContent;
-    $movie_card_arr[i].style = 'display:none';
-  }
-  // 키워드가 들어간 영화 제목을 담을 배열
-  let filter_movie_title = movie_title_arr.filter(
-    (v) => v.toLowerCase().indexOf($serach_input.toLowerCase()) > -1
-  );
-
-  movie_title_arr.forEach((v, i) => {
-    for (let j = 0; j < filter_movie_title.length; j++) {
-      if (v === filter_movie_title[j]) {
-        $movie_card_arr[i].style = 'display:block';
-      }
+  if (!$serach_input) {
+    alert('영화 제목을 입력하세요!');
+  } else {
+    // 전체 영화 제목을 담을 배열
+    let movie_title_arr = [];
+    for (let i = 0; i < $movie_card_arr.length; i++) {
+      movie_title_arr[i] =
+        $movie_card_arr[i].getElementsByTagName('h3')[0].textContent;
+      $movie_card_arr[i].style = 'display:none';
     }
-  });
+    // 키워드가 들어간 영화 제목을 담을 배열
+    let filter_movie_title = movie_title_arr.filter(
+      (v) => v.toLowerCase().indexOf($serach_input.toLowerCase()) > -1
+    );
+
+    movie_title_arr.forEach((v, i) => {
+      for (let j = 0; j < filter_movie_title.length; j++) {
+        if (v === filter_movie_title[j]) {
+          $movie_card_arr[i].style = 'display:block';
+        }
+      }
+    });
+  }
 }
 
 // 새로고침 방지
