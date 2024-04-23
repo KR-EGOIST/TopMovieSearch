@@ -8,6 +8,7 @@ const options = {
 };
 
 const $movie_list = document.querySelector('.movie_list');
+const $serach_form = document.getElementById('serach_form');
 
 // 영화 데이터 가져오기
 fetch(
@@ -62,3 +63,9 @@ function serach_btn() {
     }
   });
 }
+
+// 새로고침 방지
+function onSubmit(event) {
+  event.preventDefault(); // 브라우저의 기본 동작을 제어
+}
+$serach_form.addEventListener('submit', onSubmit);
