@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Rank Movie</title>
+  <script src="index.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>인기영화 검색 사이트</h1>
+  </header>
+  <!-- onsubmit="return false; 새로고침 방지 -->
+  <form class="serach" onsubmit="return false;">
+    <label>영화 검색 : </label>
+    <input type="text" id="serach_input" placeholder="영화 제목을 입력하세요.">
+    <button type="submit" onclick=serach_btn()>검색</button>
+  </form>
+  <main class="movie_list">
+
+  </main>
+
+</body>
+
+</html>

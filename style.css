@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+header {
+  background-color: aquamarine;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0px;
+}
+
+.serach {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+  border-bottom: 1px solid black;
+}
+
+.serach > label {
+  font-size: 25px;
+}
+
+.serach > input {
+  margin-left: 20px;
+  min-width: 300px;
+  padding: 10px;
+}
+
+.serach > button {
+  margin-left: 10px;
+  padding: 5px 20px;
+}
+
+.movie_list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-content: center;
+}
+
+.movie_card {
+  margin: 20px;
+  padding: 20px;
+  width: 300px;
+  justify-self: center;
+  background-color: darkgray;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.movie_card > img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.movie_card > h3 {
+  margin-bottom: 10px;
+}
