@@ -24,14 +24,11 @@ header {
   background-color: black;
 }
 
-header > a {
-  font-size: 40px;
+header > div {
   text-transform: uppercase;
   position: relative;
   display: inline-block;
   margin: 10px 0px;
-  color: white;
-  text-decoration-line: none;
 }
 
 .title_style {
