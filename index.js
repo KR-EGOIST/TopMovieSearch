@@ -27,12 +27,15 @@ fetch(
       const vote = v['vote_average'];
       const id = v['id'];
 
+      // toFixed(n) n 자리수까지 반올림 후 표시
       temp_html += ` 
-      <div class="movie_card" onclick="alert('id : ${id}')">
+      <div class="movie_card" onclick="alert('영화 id: ${id}')">
         <img src='${img_url}' alt="">
-        <h3>${movie_title}</h3>
-        <p>${overview}</p>
-        <p>⭐ ${vote}</p>
+        <div class="overlay">
+          <h3>${movie_title}</h3>
+          <p>${overview}</p>
+          <p>⭐ ${vote.toFixed(1)}</p>
+        </div>
       </div>`;
 
       $movie_list.innerHTML = temp_html;
@@ -47,7 +50,8 @@ function serach_btn() {
   // 전체 영화 제목을 담을 배열
   let movie_title_arr = [];
   for (let i = 0; i < $movie_card_arr.length; i++) {
-    movie_title_arr[i] = $movie_card_arr[i].children[1].textContent;
+    movie_title_arr[i] =
+      $movie_card_arr[i].getElementsByTagName('h3')[0].textContent;
     $movie_card_arr[i].style = 'display:none';
   }
   // 키워드가 들어간 영화 제목을 담을 배열
