@@ -33,6 +33,8 @@ function serachBtn() {
   }
 }
 
+// 버튼 클릭시 serachBtn 함수 실행
+// form 태그로 HTML 을 작성해서 엔터키도 같이 작동함.
 export const searchButton = () => {
   searchBtn.addEventListener('click', () => {
     serachBtn();
