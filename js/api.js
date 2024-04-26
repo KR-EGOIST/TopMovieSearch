@@ -1,3 +1,4 @@
+import { movieDataList } from './main.js';
 import { displayMovies } from './card-append.js';
 
 // TMDB API 정보
@@ -10,14 +11,17 @@ const options = {
   },
 };
 
-export async function fetchMovies() {
+export async function fetchMovies(pageNum) {
   try {
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}`,
       options
     );
     const data = await response.json();
     displayMovies(data['results']);
+    data.results.forEach((movie) => {
+      movieDataList.push(movie);
+    });
   } catch (error) {
     console.error('Failed to fetch movies:', error);
   }
