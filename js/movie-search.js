@@ -42,7 +42,8 @@ export const searchButton = () => {
 };
 
 // 새로고침 방지
-export function onSubmit(event) {
-  event.preventDefault(); // 브라우저의 기본 동작을 제어
+export function onSubmit() {
+  serachForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // 브라우저의 기본 동작을 제어
+  });
 }
-serachForm.addEventListener('submit', onSubmit);
