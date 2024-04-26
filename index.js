@@ -7,65 +7,67 @@ const options = {
   },
 };
 
-const $movie_list = document.querySelector('.movie_list');
-const $serach_form = document.getElementById('serach_form');
+const movieList = document.querySelector('.movie_list');
+const serachForm = document.getElementById('serach_form');
+const searchInput = document.getElementById('serach_input');
+const movieCardArr = document.getElementsByClassName('movie_card');
 
-// 영화 데이터 가져오기
-fetch(
-  'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
-  options
-)
-  .then((response) => response.json())
-  .then((response) => {
-    const movie_list = response['results'];
+async function fetchMovies() {
+  try {
+    const response = await fetch(
+      'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
+      options
+    );
+    const data = await response.json();
+    displayMovies(data['results']);
+  } catch (error) {
+    console.error('Failed to fetch movies:', error);
+  }
+}
 
-    let temp_html = ``;
-    movie_list.forEach((v) => {
-      const img_url = `https://image.tmdb.org/t/p/w500${v['backdrop_path']}`;
-      const movie_title = v['title'];
-      const overview = v['overview'];
-      const vote = v['vote_average'];
-      const id = v['id'];
-
-      // toFixed(n) n 자리수까지 반올림 후 표시
-      temp_html += ` 
-      <div class="movie_card" onclick="alert('영화 id: ${id}')">
-        <img src='${img_url}' alt="">
-        <div class="overlay">
-          <h3>${movie_title}</h3>
-          <p>${overview}</p>
-          <p>⭐ ${vote.toFixed(1)}</p>
-        </div>
-      </div>`;
-
-      $movie_list.innerHTML = temp_html;
-    });
+function displayMovies(data) {
+  let temp_html = '';
+  data.forEach((movie) => {
+    const img_url = `https://image.tmdb.org/t/p/w500${movie['backdrop_path']}`;
+    temp_html += `
+    <div class="movie_card" onclick="alert('영화 id: ${movie['id']}')">
+      <img src='${img_url}' alt="">
+      <div class="overlay">
+        <h3>${movie['title']}</h3>
+        <p>${movie['overview']}</p>
+        <p>⭐ ${movie['vote_average'].toFixed(1)}</p>
+      </div>
+    </div>`;
   });
+  movieList.innerHTML = temp_html;
+}
+
+fetchMovies();
 
 // 검색 기능
-function serach_btn() {
-  const $serach_input = document.getElementById('serach_input').value;
-  const $movie_card_arr = document.getElementsByClassName('movie_card');
+function serachBtn() {
+  const searchInputValue = searchInput.value;
 
-  if (!$serach_input) {
+  if (!searchInputValue) {
     alert('영화 제목을 입력하세요!');
   } else {
     // 전체 영화 제목을 담을 배열
-    let movie_title_arr = [];
-    for (let i = 0; i < $movie_card_arr.length; i++) {
-      movie_title_arr[i] =
-        $movie_card_arr[i].getElementsByTagName('h3')[0].textContent;
-      $movie_card_arr[i].style = 'display:none';
+    let movieTitleArr = [];
+    for (let i = 0; i < movieCardArr.length; i++) {
+      movieTitleArr[i] =
+        movieCardArr[i].getElementsByTagName('h3')[0].textContent;
+      movieCardArr[i].style = 'display:none';
     }
     // 키워드가 들어간 영화 제목을 담을 배열
-    let filter_movie_title = movie_title_arr.filter(
-      (v) => v.toLowerCase().indexOf($serach_input.toLowerCase()) > -1
+    const searchInputLower = searchInputValue.toLowerCase();
+    let filterMovieTitle = movieTitleArr.filter((v) =>
+      v.toLowerCase().includes(searchInputLower)
     );
 
-    movie_title_arr.forEach((v, i) => {
-      for (let j = 0; j < filter_movie_title.length; j++) {
-        if (v === filter_movie_title[j]) {
-          $movie_card_arr[i].style = 'display:block';
+    movieTitleArr.forEach((v, i) => {
+      for (let j = 0; j < filterMovieTitle.length; j++) {
+        if (v === filterMovieTitle[j]) {
+          movieCardArr[i].style = 'display:block';
         }
       }
     });
@@ -76,4 +78,4 @@ function serach_btn() {
 function onSubmit(event) {
   event.preventDefault(); // 브라우저의 기본 동작을 제어
 }
-$serach_form.addEventListener('submit', onSubmit);
+serachForm.addEventListener('submit', onSubmit);
