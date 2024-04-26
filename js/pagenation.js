@@ -15,7 +15,7 @@ export const pagenation = () => {
         nb.classList.remove('active');
       }
       event.target.classList.add('active');
-      console.log(item);
+      
       movieLists.replaceChildren(); // 기존 movieCard 삭제
       movieDataList.length = 0; // 페이지 단위로 검색 가능하게 할려고
       await fetchMovies(item.textContent);
